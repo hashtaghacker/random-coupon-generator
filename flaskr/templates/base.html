@@ -1,0 +1,22 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - VCardia</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<nav>
+  <h1>VCardia - Code Generator</h1>
+    {% if g.user %}
+    <span>{{ g.user['username'] }}<i style="font-size: 12px; color: green" class="material-icons">verified_user</i>&nbsp</span>
+    <a href="{{ url_for('auth.logout') }}">Log Out</a>
+        {% else %}
+    <a href="{{ url_for('auth.login') }}">Log In</a>
+        {% endif %}
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
